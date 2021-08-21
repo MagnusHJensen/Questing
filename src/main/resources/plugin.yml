@@ -1,0 +1,28 @@
+name: Questing
+version: ${project.version}
+main: dk.magnusjensen.questing.Questing
+api-version: 1.16
+authors: [legenden]
+description: A custom question plugin
+
+commands:
+  uuidcheck:
+    description: A command, used to enable uuid checking for entities.
+    usage: /uuidcheck
+    permission: questing.uuidcheck
+  abandon:
+    description: Command used to abandon an ongoing quest.
+    usage: /abandon <quest-id>
+    permission: questing.abandon
+  start:
+    description: Command used to accept a quest.
+    usage: /start <quest-id>
+    permission: questing.start
+  deny:
+    description: Command used to deny a quest.
+    usage: /deny <quest-id>
+    permission: questing.deny
+  save:
+    description: Command to save current progress.
+    usage: /save
+    permission: questing.save

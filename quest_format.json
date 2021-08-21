@@ -1,0 +1,83 @@
+
+{
+    "quests": [
+        {
+            "id": 1,
+            "name": "Get the shop up and running",
+            "paragraphs": {
+                "requirements_not_met":  {
+                    "lines": ["You unfortunately, don't have the skill level yet needed, come back later!"],
+                    "random": false
+                },
+                "opening_line": {
+                    "lines": ["Welcome to my humble shop!. I'm currently looking for help finding a lost item, can you help me %PLAYER%?"],
+                    "random": false
+                },
+                "accept": {
+                    "lines": ["Thank you very much %PLAYER%! I need you to find me a %ITEM%, over at %LOCATION%, please return to me, once you have it."],
+                    "random": false
+                },
+                "deny": {
+                    "lines": ["Too bad, you won't even help an old man..."],
+                    "random": false
+                },
+                "ongoing": {
+                    "lines": ["Have you got the %REQ% yet?"],
+                    "random": false
+                },
+                "completion": {
+                    "lines": ["That is excatly what I needed, now I can finally reopen my shop!"],
+                    "random": false
+                },
+                "abandon": {
+                    "lines": ["Too bad, you couldn't find my %ITEM%, I hope you will come back and help me another time."],
+                    "random": false
+                }
+            },
+            "requirements": {
+                "completion": {
+					"type": "item",
+					"data": {
+						"item": "SWEM_WESTERN_HITCHING_POST",
+						"amount": 1
+					}
+                },	
+                "start": {
+					"type": "quest",
+					"data": {
+						"quests": ["uuid-id", "uuid2-id"]
+					}
+                    
+                }
+            },
+            "reward": {
+              "type": "item",
+              "data": {
+				  "item": "DIAMOND",
+				  "amount": 6,
+				  "meta": {
+					  "lore": ["This item has a custom lore", "yes that is true!"],
+					  "displayName": "customDisplayName"
+				  }
+			  }
+            },
+            "formatting": { //Formatting object is used, if quest maker wants to use more than the default provided placeholders. To be discussed.
+                "LOCATION": "North side of the castle!"
+            },
+            "completedBy": ["playerUUID", "playerUUID2"],
+            "ongoingBy": ["playerUUID"]
+        },
+        {...},
+    ]
+}
+
+
+EVENT TRIGGERS
+"event_triggers":
+type: "SPAWN_ENEMY",
+entity_id: kals;jd,
+quantity: apple,
+ect, ect
+
+
+"instancing", anything quest related, say a NPC only to keep up with the quest, 
