@@ -11,7 +11,9 @@
                 },
                 "opening_line": {
                     "lines": ["Welcome to my humble shop!. I'm currently looking for help finding a lost item, can you help me %PLAYER%?"],
-                    "random": false
+                    "playerLines": ["Thank you %NPC%! I'll start the search right away!"],
+                    "random": false,
+                    "playerLineFirst": false
                 },
                 "accept": {
                     "lines": ["Thank you very much %PLAYER%! I need you to find me a %ITEM%, over at %LOCATION%, please return to me, once you have it."],
