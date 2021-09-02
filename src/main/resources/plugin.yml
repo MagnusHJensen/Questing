@@ -3,7 +3,7 @@ version: ${project.version}
 main: dk.magnusjensen.questing.Questing
 api-version: 1.16
 authors: [legenden]
-description: A custom question plugin
+description: A custom questing plugin
 
 commands:
   uuidcheck:
@@ -26,3 +26,7 @@ commands:
     description: Command to save current progress.
     usage: /save
     permission: questing.save
+  mobzone:
+    description: Command to create mobzones.
+    usage: /mobzone
+    permission: questing.mobzone
