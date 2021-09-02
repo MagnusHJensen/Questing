@@ -24,7 +24,7 @@ public class QuestStart implements IQuestStart {
 
 	@Override
 	public boolean canStartQuest(Player player) {
-		ArrayList<String> completedQuests = Questing.players.get(player.getUniqueId()).get("completedBy");
+		ArrayList<String> completedQuests = Questing.players.get(player.getUniqueId()).getOrDefault("completed", new ArrayList<>());
 		boolean canStart = true;
 		for (String questId : questIds) {
 			if (!completedQuests.contains(questId)) {
