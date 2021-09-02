@@ -6,7 +6,7 @@
 
     <groupId>dk.magnusjensen</groupId>
     <artifactId>questing</artifactId>
-    <version>0.01</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <name>Questing</name>
@@ -69,6 +69,12 @@
             <groupId>com.destroystokyo.paper</groupId>
             <artifactId>paper-api</artifactId>
             <version>1.16.5-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.craftbukkit</groupId>
+            <artifactId>craftbukkit-mapped</artifactId>
+            <version>1.0</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
