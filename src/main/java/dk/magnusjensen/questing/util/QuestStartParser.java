@@ -2,6 +2,7 @@ package dk.magnusjensen.questing.util;
 
 import com.google.gson.JsonObject;
 import dk.magnusjensen.questing.data.requirements.start.IQuestStart;
+import dk.magnusjensen.questing.data.requirements.start.ItemStart;
 import dk.magnusjensen.questing.data.requirements.start.NoneStart;
 import dk.magnusjensen.questing.data.requirements.start.QuestStart;
 import dk.magnusjensen.questing.data.rewards.IQuestReward;
@@ -21,6 +22,8 @@ public class QuestStartParser {
 			return parseQuestReq(startObject);
 		} else if (startObject.get("type").getAsString().equalsIgnoreCase("none")) {
 			return new NoneStart();
+		} else if (startObject.get("type").getAsString().equalsIgnoreCase("item")) {
+			return parseItemReq(startObject);
 		}
 		System.out.println("Quest Start type not known!");
 		return null;
@@ -34,6 +37,30 @@ public class QuestStartParser {
 		});
 
 		return new QuestStart(questIds);
+	}
+
+	private static ItemStart parseItemReq(JsonObject startObject) {
+		JsonObject data = startObject.getAsJsonObject("data");
+		Material material = Material.getMaterial(data.get("item").getAsString().toUpperCase());
+		int amount = data.get("amount").getAsInt();
+		boolean take = data.get("take").getAsBoolean();
+		ItemStack stack = new ItemStack(material, amount);
+		ItemMeta itemMeta = stack.getItemMeta();
+		if (data.has("meta")) {
+			JsonObject meta = data.getAsJsonObject("meta");
+			if (meta.has("lore")) {
+				ArrayList<String> loreLines = new ArrayList<>();
+				meta.getAsJsonArray("lore").forEach((line) -> loreLines.add(line.getAsString()));
+				itemMeta.setLore(loreLines);
+			}
+			if (meta.has("displayName")) {
+				itemMeta.setDisplayName(meta.get("displayName").getAsString());
+			}
+		}
+		stack.setItemMeta(itemMeta);
+		ArrayList<ItemStack> stacks = new ArrayList<>();
+		stacks.add(stack);
+		return new ItemStart(stacks, take);
 	}
 
 
