@@ -25,7 +25,7 @@ public class ItemCompletion implements IQuestCompletion {
 	}
 
 	@Override
-	public boolean canCompleteQuest(Player player) {
+	public boolean canCompleteQuest(Quest quest, Player player) {
 		for (ItemStack stackRequired : this.itemStacks) {
 			if (!player.getInventory().containsAtLeast(stackRequired, stackRequired.getAmount()))
 				return false;
@@ -34,5 +34,13 @@ public class ItemCompletion implements IQuestCompletion {
 		return true;
 	}
 
+	@Override
+	public boolean hasMobKills() {
+		return false;
+	}
 
+	@Override
+	public int getAmount() {
+		return 0;
+	}
 }

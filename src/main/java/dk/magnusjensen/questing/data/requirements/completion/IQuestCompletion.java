@@ -7,6 +7,10 @@ public interface IQuestCompletion {
 
 	void completeQuest(Quest quest, Player player);
 
-	boolean canCompleteQuest(Player player);
+	boolean canCompleteQuest(Quest quest, Player player);
+
+	boolean hasMobKills();
+
+	int getAmount();
 
 }
