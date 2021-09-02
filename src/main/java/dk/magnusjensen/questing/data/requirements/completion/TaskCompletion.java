@@ -10,7 +10,18 @@ public class TaskCompletion implements IQuestCompletion {
 	}
 
 	@Override
-	public boolean canCompleteQuest(Player player) {
+	public boolean canCompleteQuest(Quest quest, Player player) {
 		return false;
+	}
+
+	@Override
+	public boolean hasMobKills() {
+		return false;
+	}
+
+
+	@Override
+	public int getAmount() {
+		return 0;
 	}
 }
