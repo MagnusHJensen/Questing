@@ -59,13 +59,13 @@ public class QuestParser {
 
 	private static Quest mapJsonToQuest(UUID questGiver, JsonObject quest) {
 		IQuestStart start = QuestStartParser.parseQuestStart(quest.getAsJsonObject("requirements").getAsJsonObject("start"));
-		IQuestCompletion completion = QuestCompletionParser.parseQuestCompletion(quest.getAsJsonObject("requirements").getAsJsonObject("completion"));
 		IQuestReward reward = QuestRewardParser.parseReward(quest.getAsJsonObject("reward"));
 
 		int id = quest.get("id").getAsInt();
 		String name = quest.get("name").getAsString();
 		HashMap<String, QuestParagraph> paragraphs = parseParagraphs(quest.getAsJsonObject("paragraphs"));
 		HashMap<String, String> formatting = parseFormatting(quest.getAsJsonObject("formatting"));
+		IQuestCompletion completion = QuestCompletionParser.parseQuestCompletion(questGiver.toString() + "/" + id,  quest.getAsJsonObject("requirements").getAsJsonObject("completion"));
 
 		return new Quest(questGiver, id, name, paragraphs, start, completion, reward, formatting);
 	}
@@ -81,12 +81,12 @@ public class QuestParser {
 			for (JsonElement line : individualParaObject.get("lines").getAsJsonArray()) {
 				npcLines.add(line.getAsString());
 			}
-			for (JsonElement playerLine : individualParaObject.getAsJsonArray("playerLines")) {
-				playerLines.add(playerLine.getAsString());
-			}
+			//for (JsonElement playerLine : individualParaObject.getAsJsonArray("playerLines")) {
+			//	playerLines.add(playerLine.getAsString());
+			//}
 			boolean random = individualParaObject.has("random") && individualParaObject.get("random").getAsBoolean();
-			boolean playerLineComesFirst = individualParaObject.has("playerLineFirst") && individualParaObject.get("playerLineFirst").getAsBoolean();
-			QuestParagraph paragraph = new QuestParagraph(npcLines, playerLines, random, playerLineComesFirst);
+			//boolean playerLineComesFirst = individualParaObject.has("playerLineFirst") && individualParaObject.get("playerLineFirst").getAsBoolean();
+			QuestParagraph paragraph = new QuestParagraph(npcLines, playerLines, random, false);
 			paragraphs.put(set.getKey(), paragraph);
 		}
 		return paragraphs;
