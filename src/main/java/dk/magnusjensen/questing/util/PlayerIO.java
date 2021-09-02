@@ -48,6 +48,7 @@ public class PlayerIO {
 				Questing.quests.get(UUID.fromString(ele.getAsString().split("/")[0])).get(Integer.parseInt(ele.getAsString().split("/")[1]) - 1).ongoingBy.add(playerUUUID);
 			});
 			playerObject.getAsJsonArray("completed").forEach((ele) -> {
+				completed.add(ele.getAsString());
 				Questing.quests.get(UUID.fromString(ele.getAsString().split("/")[0])).get(Integer.parseInt(ele.getAsString().split("/")[1]) - 1).completedBy.add(playerUUUID);
 			});
 
