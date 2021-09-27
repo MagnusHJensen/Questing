@@ -3,6 +3,7 @@ package dk.magnusjensen.questing.util;
 import com.google.gson.JsonObject;
 import dk.magnusjensen.questing.data.rewards.IQuestReward;
 import dk.magnusjensen.questing.data.rewards.ItemReward;
+import dk.magnusjensen.questing.data.rewards.MoneyReward;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -17,6 +18,9 @@ public class QuestRewardParser {
 			return parseItemReward(rewardObject);
 		} else if (rewardObject.get("type").getAsString().equalsIgnoreCase("items")) {
 			return null;
+			//return parseItemRewards(rewardObject);
+		}  else if (rewardObject.get("type").getAsString().equalsIgnoreCase("money")) {
+			return parseMoneyReward(rewardObject);
 			//return parseItemRewards(rewardObject);
 		}
 		System.out.println("Quest Reward type not known!");
@@ -49,5 +53,13 @@ public class QuestRewardParser {
 	private static ItemReward parseItemRewards(JsonObject rewardObject) {
 		JsonObject data = rewardObject.getAsJsonObject("data");
 		return null;
+	}
+
+	private static MoneyReward parseMoneyReward(JsonObject rewardObject) {
+		JsonObject data = rewardObject.getAsJsonObject("data");
+		double money = data.get("amount").getAsDouble();
+		//boolean bankDeposit = data.get("bankDeposit").getAsBoolean();
+
+		return new MoneyReward(money, false);
 	}
 }
