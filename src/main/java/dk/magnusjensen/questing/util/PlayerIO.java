@@ -91,7 +91,6 @@ public class PlayerIO {
 
 		try {
 			String json = new Gson().toJson(playerArray);
-			System.out.println(json);
 			FileWriter writer = new FileWriter(fullPath);
 			writer.write(json);
 			writer.close();
