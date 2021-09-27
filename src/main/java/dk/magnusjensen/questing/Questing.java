@@ -7,9 +7,13 @@ import dk.magnusjensen.questing.listeners.*;
 import dk.magnusjensen.questing.util.MobZoneIO;
 import dk.magnusjensen.questing.util.PlayerIO;
 import dk.magnusjensen.questing.util.QuestParser;
+import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.conversations.ConversationFactory;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
@@ -25,6 +29,8 @@ public final class Questing extends JavaPlugin {
 	public static HashMap<UUID, HashMap<String, ArrayList<String>>> players = new HashMap<>();
 	public static ArrayList<MobZone> mobZones = new ArrayList<>();
 	public static ConversationFactory conversationFactory = new ConversationFactory(Bukkit.getPluginManager().getPlugin("questing"));
+
+	public static Economy ECONOMY = null;
 
 	@Override
 	public void onEnable() {
@@ -48,6 +54,13 @@ public final class Questing extends JavaPlugin {
 		quests = QuestParser.startParsingQuests();
 		players = PlayerIO.startParsingPlayers();
 
+		// Setup vault api economics
+		if (!setupEconomy() ) {
+			Bukkit.getLogger().severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
+			getServer().getPluginManager().disablePlugin(this);
+			return;
+		}
+
 
 		new BukkitRunnable() {
 			@Override
@@ -69,6 +82,18 @@ public final class Questing extends JavaPlugin {
 		}
 
 		MobZoneIO.saveMobZones(mobZones);
+	}
+
+	private boolean setupEconomy() {
+		if (getServer().getPluginManager().getPlugin("Vault") == null) {
+			return false;
+		}
+		RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
+		if (rsp == null) {
+			return false;
+		}
+		ECONOMY = rsp.getProvider();
+		return ECONOMY != null;
 	}
 
 
